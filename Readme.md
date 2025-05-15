@@ -5,7 +5,7 @@ TRIVEX is a lightweight web application offering a suite of security tools desig
 ---
 ## 🌐 Live Website
 
-view : https://g0w6y.github.io/trivex
+view : https://g0w6y.github.io/Trivex
 
 ## Features  <i class="fas fa-list"></i>
 
