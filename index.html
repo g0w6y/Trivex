@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIVEX - Web Security Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1><i class="fas fa-bug"></i> TRIVEX</h1>
+            <p class="subtitle"> security tools for bug bounty hunters</p>
+        </header>
+
+<div class="tool-tabs">
+  <button class="tab-btn active" data-tab="scanner">Security Scanner</button>
+  <button class="tab-btn" data-tab="encoder">Encoder/Decoder</button>
+  <button class="tab-btn" data-tab="urls">URL Discovery</button>
+  <button class="tab-btn" data-tab="headers">Header Analyzer</button>
+</div>
+        <div class="tab-content active" id="scanner">
+            <div class="scanner-panel">
+                <div class="panel-header">
+                    <span>Security Vulnerability Scanner</span>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <label for="target-url" class="input-label">Target URL</label>
+                        <input type="url" id="target-url" class="url-input" placeholder="https://example.com" required>
+                    </div>
+                    
+                    <div class="scan-options">
+                        <div class="option-item">
+                            <input type="checkbox" id="headers-scan" class="option-checkbox" checked>
+                            <label for="headers-scan" class="option-label">Security Headers</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="clickjacking" class="option-checkbox" checked>
+                            <label for="clickjacking" class="option-label">Clickjacking</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="cors" class="option-checkbox" checked>
+                            <label for="cors" class="option-label">CORS Misconfig</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="csp" class="option-checkbox" checked>
+                            <label for="csp" class="option-label">CSP Analysis</label>
+                        </div>
+                    </div>
+                    
+                    <button id="scan-btn" class="btn btn-block">
+                        <i class="fas fa-search"></i> Start Scan
+                    </button>
+                    
+                    <div class="output-container">
+                        <div class="output-header">
+                            <div>
+                                <span id="status-indicator" class="status-indicator"></span>
+                                <span class="output-title">Scan Results</span>
+                            </div>
+                            <button id="clear-btn" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                        </div>
+                        <div id="output-box" class="output-box">
+                            [<span class="log-time">00:00:00</span>] <span class="log-info">Scanner initialized and ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="encoder">
+            <div class="encoder-panel">
+                <div class="panel-header">
+                    <span>Payload Encoder/Decoder</span>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <label for="encoder-input" class="input-label">Input Text</label>
+                        <textarea id="encoder-input" class="encoder-textarea" placeholder="Enter text to encode/decode"></textarea>
+                    </div>
+                    
+                    <div class="encoder-options">
+                        <div class="encoder-group">
+                            <h3>Encoding</h3>
+                            <button id="base64-encode" class="btn encoder-btn">Base64 Encode</button>
+                            <button id="url-encode" class="btn encoder-btn">URL Encode</button>
+                            <button id="html-encode" class="btn encoder-btn">HTML Entities</button>
+                            <button id="js-encode" class="btn encoder-btn">JS Escape</button>
+                            <button id="unicode-encode" class="btn encoder-btn">Unicode Encode</button>
+                            <button id="hex-encode" class="btn encoder-btn">Hex Encode</button>
+                        </div>
+                        
+                        <div class="encoder-group">
+                            <h3>Decoding</h3>
+                            <button id="base64-decode" class="btn encoder-btn">Base64 Decode</button>
+                            <button id="url-decode" class="btn encoder-btn">URL Decode</button>
+                            <button id="html-decode" class="btn encoder-btn">HTML Decode</button>
+                            <button id="js-decode" class="btn encoder-btn">JS Unescape</button>
+                            <button id="unicode-decode" class="btn encoder-btn">Unicode Decode</button>
+                            <button id="hex-decode" class="btn encoder-btn">Hex Decode</button>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="encoder-output" class="input-label">Result</label>
+                        <textarea id="encoder-output" class="encoder-textarea" readonly></textarea>
+                    </div>
+                    
+                    <button id="copy-result" class="btn btn-block">
+                        <i class="fas fa-copy"></i> Copy to Clipboard
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="urls">
+            <div class="urls-panel">
+                <div class="panel-header">
+                    <span>URL Discovery Tool</span>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <label for="wayback-url" class="input-label">Target Domain</label>
+                        <input type="url" id="wayback-url" class="url-input" placeholder="https://example.com" required>
+                    </div>
+                    
+                    <button id="fetch-urls-btn" class="btn btn-block">
+                        <i class="fas fa-spider"></i> Discover URLs
+                    </button>
+                    
+                    <div class="output-container">
+                        <div class="output-header">
+                            <span class="output-title">Discovered URLs</span>
+                            <div>
+                                <span id="urls-count">0</span> URLs found
+                            </div>
+                        </div>
+                        <div id="urls-results" class="urls-results">
+                            <div class="empty-state">
+                                <i class="fas fa-compass"></i>
+                                <p>Enter a domain to discover historical URLs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="headers">
+            <div class="headers-panel">
+                <div class="panel-header">
+                    <span>Security Header Analyzer</span>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <label for="headers-input" class="input-label">Paste HTTP Headers</label>
+                        <textarea id="headers-input" class="headers-textarea" placeholder="Paste HTTP headers here (e.g., Content-Security-Policy: default-src 'self')"></textarea>
+                    </div>
+                    
+                    <button id="analyze-headers-btn" class="btn btn-block">
+                        <i class="fas fa-shield-alt"></i> Analyze Headers
+                    </button>
+                    
+                    <div class="output-container">
+                        <div class="output-header">
+                            <span class="output-title">Header Analysis Results</span>
+                        </div>
+                        <div id="headers-results" class="headers-results">
+                            <div class="empty-state">
+                                <i class="fas fa-shield-virus"></i>
+                                <p>Paste HTTP headers to analyze security configuration</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+</div>
+        <footer class="app-footer">
+            <p>TRIVEX v1.0 - security tools for bug bounty hunters</p>
+            <p class="copyright">© 2023 All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
